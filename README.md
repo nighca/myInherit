@@ -1,0 +1,4 @@
+myInherit
+=========
+
+inherit with javascript
