@@ -1,0 +1,32 @@
+{
+	"name": "myInherit",
+	"title": "myInherit",
+	"description": "my inherit with javascript",
+	"version": "1.0.0",
+	"homepage": "",
+	"author": {
+		"name": "nighca",
+		"url": "http://nighca.me/"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/nighca/myInherit.git"
+	},
+	"licenses": [
+		{
+			"type": "Apache License Version 2.0",
+			"url": "http://www.apache.org/licenses/"
+		}
+	],
+	"dependencies": {},
+	"devDependencies": {
+		"grunt": "~0.4.1",
+		"grunt-contrib-clean": "~0.4.0",
+		"grunt-contrib-concat": "~0.1.3",
+		"grunt-contrib-uglify": "~0.2.2",
+		"grunt-cafe-mocha": "~0.1.8",
+
+		"should": "~1.2.2"
+	},
+	"keywords": ["inherit", "javascript"]
+}
