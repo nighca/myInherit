@@ -1,6 +1,6 @@
 var Class = function(baseClass, opt){
 
-    //without baseClass
+    // Without baseClass
     if(!opt){
         opt = baseClass;
         baseClass = function(){};
@@ -9,22 +9,10 @@ var Class = function(baseClass, opt){
         }
     }
 
+    // Inherit properties from base
     var init = opt.init || function(){};
-    var proto = {};
-
-    var baseClassProto = baseClass.prototype, value;
-    for(var name in baseClassProto){
-        if(baseClassProto.hasOwnProperty(name)){
-            value = baseClassProto[name];
-            if(typeof value === 'function'){
-                proto[name] = value;
-            }
-        }
-    }
-    //proto = baseClass.prototype;
-
-    var baseClassObj = new baseClass();
-    var Base, getBase = function(name){
+    var proto = new baseClass();
+    var genGet, genSet = genGet = function(name){
         return function(value){
             if(value){
                 this.__base__[name] = value;
@@ -32,22 +20,18 @@ var Class = function(baseClass, opt){
             return this.__base__[name];
         };
     };
-    for(var name in baseClassObj){
-        if(baseClassObj.hasOwnProperty(name)){
-            Base = getBase(name);
+    for(var name in proto){
+        if(proto.hasOwnProperty(name)){
             Object.defineProperty(proto, name, {
-                set: function (val) {
-                    return Base.call(this, val);
-                },
-                get: function () {
-                    return Base.call(this);
-                },
+                set: genSet(name),
+                get: genGet(name),
                 enumerable: true,
                 configurable: true
             });
         }
     }
 
+    // Add methods from opt
     if(opt.methods){
         var methods = opt.methods;
         for(var name in methods){
@@ -57,21 +41,28 @@ var Class = function(baseClass, opt){
         }
     }
 
+    // Generate constructor
     var constructor = function(baseObj, opt){
+        // baseObj type error
         if(arguments.length >= 2 && baseObj.constructor !== baseClass){
             throw new Error('Wrong Base Object!');
         }
+
+        // Without baseObj
         if(!baseObj || baseObj.constructor !== baseClass){
             opt = opt || baseObj;
             baseObj = new baseClass(opt);
         }
 
+        // Add __base__
         Object.defineProperty(this, '__base__', {
             value: baseObj,
             enumerable: false,
+            configurable: false,
             writable: false
         });
 
+        // Do init
         init.call(this, opt);
     };
 
