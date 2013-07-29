@@ -1,7 +1,38 @@
 <html>
 <head>
-	<title></title>
-	<script type="text/javascript" src="../src/class.js"></script>
+    <title></title>
+    <script type="text/javascript" src="../src/class.js"></script>
+    <script type="text/javascript">
+    'use strict';
+    var Person = Class({
+        init: function(){
+            this.type = 'person';
+            this.name = 'noname';
+        },
+        methods: {
+            setName: function(n){
+                return this.name = n;
+            },
+            getName: function(){
+                return this.name;
+            }
+        }
+    });
+
+    var Coder = Class(Person, {
+        init: function(){
+            this.job = 'coder';
+        },
+        methods: {
+            getName: function(){
+                return 'Coder ' + this.__base__.getName();
+            }
+        }
+    });
+
+    var p = new Person();
+    var c2 = new Coder(p);
+    </script>
 </head>
 <body>
 
