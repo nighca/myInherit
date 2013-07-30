@@ -12,6 +12,6 @@
         });
     }
 
-}(this, function ( window, undefined ) {
+}(this, function ( window ) {
 
     "use strict";
